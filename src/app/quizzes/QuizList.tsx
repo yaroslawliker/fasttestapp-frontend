@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { QuizPreviewDto } from '@/app/types'
 import { fetchLatestQuizzes } from '@/app/api/api'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 
 import styles from '@/app/quizzes/QuizList.module.css'
