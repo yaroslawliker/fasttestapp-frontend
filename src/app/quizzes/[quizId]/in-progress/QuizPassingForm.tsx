@@ -6,7 +6,6 @@ import { Quiz } from '@/app/types'
 
 export default function QuizPassingForm({ quizId }: { quizId: number }) {
   const [quiz, setQuiz] = useState<Quiz | null>(null)
-  // ключ - індекс питання, значення - Set індексів відповідей
   const [answers, setAnswers] = useState<{ [questionIndex: number]: Set<number> }>({})
   const router = useRouter()
 
@@ -40,7 +39,6 @@ export default function QuizPassingForm({ quizId }: { quizId: number }) {
   const handleSubmit = async () => {
     const token = localStorage.getItem('token')
 
-    // Формуємо payload, де питання і відповіді — по індексах (0-based)
     const payload = quiz?.questions?.map((_, questionIndex) => ({
       questionIndex: questionIndex,
       selectedAnswerIndexes: Array.from(answers[questionIndex] || []),
@@ -56,8 +54,14 @@ export default function QuizPassingForm({ quizId }: { quizId: number }) {
     })
 
     if (res.ok) {
-      await res.json()
-      router.push(`/quiz/${quizId}/result`)
+      const resultJSON = await res.json()
+      const score = resultJSON.score;
+
+      alert("Ваш рахунок: " + score)
+
+      router.push("/quizzes")
+
+      
     } else {
       alert('Помилка при завершенні тесту')
     }
