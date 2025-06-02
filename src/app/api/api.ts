@@ -4,9 +4,21 @@ const localhost:string = 'http://localhost:8080';
 
 
 export async function fetchLatestQuizzes(count = 10): Promise<QuizPreviewDto[]> {
-  const response = await fetch(`${localhost}/quizzes?count=${count}`)
+
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(
+    `${localhost}/quizzes?count=${count}`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      }
+    }
+  )
 
   if (!response.ok) {
+    console.log(response)
     throw new Error('Failed to fetch quizzes')
   }
 
