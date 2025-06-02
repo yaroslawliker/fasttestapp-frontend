@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { QuizPreviewDto } from '@/app/types'
 import { fetchLatestQuizzes } from '@/app/api/api'
+import styles from '@/app/quizzes/QuizList.module.css'
 
 export default function QuizList() {
   const [quizzes, setQuizzes] = useState<QuizPreviewDto[]>([])
@@ -21,14 +22,33 @@ export default function QuizList() {
   if (error) return <p>Помилка: {error}</p>
 
   return (
-    <ul>
-      {quizzes.map(quiz => (
-        <li key={quiz.id}>
-          <h3>{quiz.name}</h3>
-          <p>{quiz.description}</p>
-          <small>Створено: {new Date(quiz.creationDate).toLocaleDateString()}</small>
-        </li>
-      ))}
-    </ul>
+    <div className={styles.container}>
+      <h2 className={styles.quizzesName}>Quizzes</h2>
+      <div className={styles.quizContainer}>
+        {quizzes.map((quiz) => (
+          <div key={quiz.id} className={styles.quizItem}>
+            <div className={styles.quizBlock}>
+              <div className={styles.name}>{quiz.name}</div>
+              <div className={styles.description}>{quiz.description}</div>
+              <div className={styles.line}></div>
+              <div className={styles.line}></div>
+              <div className={styles.authorDate}>
+                <div className={styles.author}>Автор: {quiz.ownerId}</div>
+                <div className={styles.date}>
+                  Створено: {new Date(quiz.creationDate).toLocaleDateString()}
+                </div>
+              </div>
+            </div>
+            <form action={`/tests/${quiz.id}/preview`} method="post">
+              <input type="hidden" name="quizId" value={quiz.id} />
+              <button type="submit" className={styles.startButton}>
+                Почати тест!
+              </button>
+            </form>
+          </div>
+        ))}
+      </div>
+    </div>
   )
+  
 }
