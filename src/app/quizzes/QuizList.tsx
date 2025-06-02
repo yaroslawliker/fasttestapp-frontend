@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react'
 import { QuizPreviewDto } from '@/app/types'
 import { fetchLatestQuizzes } from '@/app/api/api'
+import { usePathname, useRouter } from 'next/navigation'
+
 
 import styles from '@/app/quizzes/QuizList.module.css'
 import StartQuizButton from './StartQuizButton'
@@ -11,7 +13,14 @@ export default function QuizList() {
   const [quizzes, setQuizzes] = useState<QuizPreviewDto[]>([])
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const router = useRouter();
 
+
+  useEffect(() => {
+    if (localStorage.getItem("token") == null) {
+      router.push('/login')
+    }
+  }, [router])
 
   useEffect(() => {
     setLoading(true)
@@ -22,7 +31,7 @@ export default function QuizList() {
   }, [])
 
   if (loading) return <p>Завантаження...</p>
-  if (error) return <p>Помилка: {error}</p>
+  if (error) return <p>Помилка: {error} </p>
 
   return (
     <div className={styles.container}>
