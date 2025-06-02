@@ -3,12 +3,15 @@
 import { useEffect, useState } from 'react'
 import { QuizPreviewDto } from '@/app/types'
 import { fetchLatestQuizzes } from '@/app/api/api'
+
 import styles from '@/app/quizzes/QuizList.module.css'
+import StartQuizButton from './StartQuizButton'
 
 export default function QuizList() {
   const [quizzes, setQuizzes] = useState<QuizPreviewDto[]>([])
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+
 
   useEffect(() => {
     setLoading(true)
@@ -39,12 +42,7 @@ export default function QuizList() {
                 </div>
               </div>
             </div>
-            <form action={`/tests/${quiz.id}/preview`} method="post">
-              <input type="hidden" name="quizId" value={quiz.id} />
-              <button type="submit" className={styles.startButton}>
-                Почати тест!
-              </button>
-            </form>
+            <StartQuizButton quizId={quiz.id}/>
           </div>
         ))}
       </div>

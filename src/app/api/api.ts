@@ -58,4 +58,26 @@ export async function login(username: string, password: string): Promise<string>
   return token;
 }
 
+export async function startQuiz(quizId: number) {
+  const token = localStorage.getItem("token")
+
+  if (!token) {
+    throw new Error("No auth token found")
+  }
+
+  const response = await fetch(`${localhost}/quizzes/${quizId}/start`, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+
+  if (!response.ok) {
+    const text = await response.text()
+    throw new Error(`Error starting quiz: ${response.status} - ${text}`)
+  }
+}
+
+
 
