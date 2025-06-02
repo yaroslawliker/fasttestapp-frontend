@@ -14,6 +14,23 @@ export async function fetchLatestQuizzes(count = 10): Promise<QuizPreviewDto[]> 
   return data
 }
 
+export async function signup(username: string, password:string, isTeacher:boolean) {
+  
+  const role = isTeacher? "TEACHER" : "STUDENT";
+
+  const response = await fetch(`${localhost}/signup`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password, role }),
+  });
+
+  if (!response.ok) {
+    throw new Error(response.json.toString())
+  }
+
+  return response
+}
+
 export async function login(username: string, password: string): Promise<string> {
   const response = await fetch(`${localhost}/token`, {
     method: 'POST',
