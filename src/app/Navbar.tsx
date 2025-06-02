@@ -25,12 +25,7 @@ export default function Navbar() {
         </Link>
         {/* </div> */}
         {/* <div className={style.navItem}> */}
-        <Link href="/students">
-        My students
-        </Link>
-        {/* </div> */}
-        {/* <div className={style.navItem}> */}
-        <Link href="/create">
+        <Link href="/quizzes/create">
           Create
         </Link>
         {/* </div> */}
