@@ -4,7 +4,7 @@ Back-end repo: https://github.com/yaroslawliker/fasttest-backend
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Reason
-This app is written as a lab for third-grade OOP university course.
+This app is written as a lab for third-grade OOP university course. And didn't have enough time for this lab, so the front-end is horrible, written with improper use of generative AI. Do not judge it much please.
 
 ## Getting Started
 
